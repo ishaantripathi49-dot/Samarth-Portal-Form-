@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samarth Portal · Faculty Profile Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); font-family:'Inter',sans-serif; padding:2rem 1.5rem; color:#1a2639; min-height:100vh; }
+        
+        .form-container { max-width:1200px; margin:0 auto; }
+        
+        .header { background:white; border-radius:2rem; padding:2.5rem; margin-bottom:2rem; box-shadow:0 25px 50px -12px rgba(0,0,0,0.25); text-align:center; }
+        .header h1 { font-size:2.2rem; background:linear-gradient(135deg,#667eea,#764ba2); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:0.5rem; }
+        .header p { color:#666; }
+        
+        .header-nav { display:flex; gap:1rem; margin-top:1.5rem; justify-content:center; flex-wrap:wrap; }
+        .nav-link { padding:0.7rem 1.5rem; background:#f0f0f0; border-radius:1rem; text-decoration:none; color:#333; font-weight:600; transition:all 0.3s; }
+        .nav-link:hover { background:#667eea; color:white; }
+        .nav-link.active { background:#667eea; color:white; }
+        
+        .form-section { background:white; border-radius:2rem; padding:2rem; margin-bottom:2rem; box-shadow:0 25px 50px -12px rgba(0,0,0,0.25); }
+        .form-section h2 { font-size:1.4rem; color:#667eea; margin-bottom:1.5rem; padding-bottom:1rem; border-bottom:2px solid #f0f0f0; }
+        .form-section h3 { font-size:1.1rem; color:#555; margin-bottom:1rem; margin-top:1.5rem; }
+        
+        .form-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5rem 2rem; margin-bottom:1.5rem; }
+        .form-group { display:flex; flex-direction:column; }
+        .form-group.full-width { grid-column:span 3; }
+        
+        label { font-weight:600; font-size:0.85rem; text-transform:uppercase; color:#333; margin-bottom:0.5rem; }
+        input, select, textarea { border:2px solid #e2e9f2; background:white; border-radius:0.8rem; padding:0.8rem; font-size:1rem; font-family:'Inter',sans-serif; }
+        input:focus, select:focus, textarea:focus { outline:none; border-color:#667eea; box-shadow:0 0 0 3px rgba(102,126,234,0.1); }
+        textarea { resize:vertical; min-height:100px; }
+        
+        .button-group { display:flex; gap:1rem; justify-content:center; margin-top:2rem; flex-wrap:wrap; }
+        .btn { padding:1rem 2rem; border:none; border-radius:1rem; font-weight:600; cursor:pointer; font-size:1rem; transition:all 0.3s; }
+        .btn-submit { background:linear-gradient(135deg,#0f5b3c,#0d4a31); color:white; }
+        .btn-submit:hover { transform:translateY(-2px); box-shadow:0 10px 20px rgba(15,91,60,0.3); }
+        .btn-reset { background:#f0f0f0; color:#333; }
+        .btn-reset:hover { background:#e0e0e0; }
+        
+        .success-message { background:#0f5b3c; color:white; padding:1rem; border-radius:1rem; text-align:center; margin-bottom:2rem; display:none; }
+        .required { color:#d0302f; }
+        
+        @media (max-width:1024px) {
+            .form-grid { grid-template-columns:repeat(2, 1fr); }
+            .form-group.full-width { grid-column:span 2; }
+        }
+        
+        @media (max-width:768px) {
+            .header h1 { font-size:1.8rem; }
+            .form-grid { grid-template-columns:1fr; }
+            .form-group.full-width { grid-column:span 1; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    
+    <div class="header">
+        <h1>📋 Samarth Portal</h1>
+        <p>Faculty Profile Information Form</p>
+        <div class="header-nav">
+            <a href="index.html" class="nav-link">📊 Admin Dashboard</a>
+            <a href="form.html" class="nav-link active">📝 Fill Form</a>
+        </div>
+    </div>
+
+    <div id="successMessage" class="success-message">✅ Form submitted successfully! Your data has been saved.</div>
+
+    <form id="facultyForm" onsubmit="submitForm(event)">
+        
+        <!-- EMPLOYEE INFORMATION -->
+        <div class="form-section">
+            <h2>👔 Employee Information</h2>
+            <div class="form-grid">
+                <div class="form-group"><label>Employee Code <span class="required">*</span></label><input type="text" id="employeeCode" required></div>
+                <div class="form-group"><label>Type of Employee <span class="required">*</span></label>
+                    <select id="typeOfEmployee" required>
+                        <option value="">--Select--</option>
+                        <option value="Teaching">Teaching</option>
+                        <option value="Non-Teaching">Non-Teaching</option>
+                        <option value="Academic others">Academic others</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Is Teacher</label>
+                    <select id="isTeacher">
+                        <option value="">--Select--</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Organization Unit <span class="required">*</span></label><input type="text" id="organizationUnit" required></div>
+                <div class="form-group"><label>Designation</label><input type="text" id="designation"></div>
+                <div class="form-group"><label>Sanctioned OU</label><input type="text" id="sanctionedOu"></div>
+                <div class="form-group"><label>Sanctioned Designation</label><input type="text" id="sanctionedDesignation"></div>
+                <div class="form-group"><label>Nature of Employment</label><input type="text" id="natureOfEmployment"></div>
+                <div class="form-group"><label>Seniority Rank</label><input type="text" id="seniorityRank"></div>
+                <div class="form-group"><label>Subject Specialization</label><input type="text" id="subjectSpecialization"></div>
+                <div class="form-group"><label>Appointed Category</label><input type="text" id="appointedCategory"></div>
+                <div class="form-group"><label>Qualification at Appointment</label><input type="text" id="qualificationAtTheTimeOfAppointment"></div>
+                <div class="form-group"><label>University Accommodation</label>
+                    <select id="universityAccomodation">
+                        <option value="">--Select--</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- PERSONAL DETAILS -->
+        <div class="form-section">
+            <h2>👤 Personal Details</h2>
+            <div class="form-grid">
+                <div class="form-group"><label>Salutation</label>
+                    <select id="salutation">
+                        <option value="">--Select--</option>
+                        <option value="Dr.">Dr.</option>
+                        <option value="Mr.">Mr.</option>
+                        <option value="Ms.">Ms.</option>
+                        <option value="Mrs.">Mrs.</option>
+                        <option value="Prof.">Prof.</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>First Name <span class="required">*</span></label><input type="text" id="firstName" required></div>
+                <div class="form-group"><label>Middle Name</label><input type="text" id="middleName"></div>
+                <div class="form-group"><label>Last Name <span class="required">*</span></label><input type="text" id="lastName" required></div>
+                <div class="form-group"><label>Name in Hindi</label><input type="text" id="nameInHindi"></div>
+                <div class="form-group"><label>Gender</label>
+                    <select id="gender">
+                        <option value="">--Select--</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Date of Birth</label><input type="date" id="dateOfBirth"></div>
+                <div class="form-group"><label>Date of Joining</label><input type="date" id="dateOfJoining"></div>
+                <div class="form-group"><label>Date of Superannuation</label><input type="date" id="dateOfSuperannuation"></div>
+                <div class="form-group"><label>Blood Group</label>
+                    <select id="bloodGroup">
+                        <option value="">--Select--</option>
+                        <option value="A+">A+</option><option value="A-">A-</option>
+                        <option value="B+">B+</option><option value="B-">B-</option>
+                        <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                        <option value="O+">O+</option><option value="O-">O-</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Marital Status</label>
+                    <select id="maritalStatus">
+                        <option value="">--Select--</option>
+                        <option value="Married">Married</option>
+                        <option value="Unmarried">Unmarried</option>
+                        <option value="Divorced">Divorced</option>
+                        <option value="Widowed">Widowed</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- DISABILITY & CATEGORY INFORMATION -->
+        <div class="form-section">
+            <h2>📋 Category & Disability Information</h2>
+            <div class="form-grid">
+                <div class="form-group"><label>Social Category</label>
+                    <select id="socialCategory">
+                        <option value="">--Select--</option>
+                        <option value="UNRESERVED">UNRESERVED</option>
+                        <option value="OBC">OBC</option>
+                        <option value="SC">SC</option>
+                        <option value="ST">ST</option>
+                        <option value="PWD">PWD</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Belong to PWD Category</label>
+                    <select id="belongToPwdCategory">
+                        <option value="">--Select--</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Nature of Disability</label><input type="text" id="natureOfDisability"></div>
+                <div class="form-group"><label>Religion</label><input type="text" id="religion"></div>
+                <div class="form-group"><label>Nationality</label><input type="text" id="nationality"></div>
+                <div class="form-group"><label>Other Nationality</label><input type="text" id="otherNationality"></div>
+            </div>
+        </div>
+
+        <!-- CONTACT INFORMATION -->
+        <div class="form-section">
+            <h2>📞 Contact Information</h2>
+            <div class="form-grid">
+                <div class="form-group"><label>Mobile Number</label><input type="tel" id="mobileNumber"></div>
+                <div class="form-group"><label>Alternate Mobile</label><input type="tel" id="alternateMobileNo"></div>
+                <div class="form-group"><label>Personal Email</label><input type="email" id="personalEmail"></div>
+                <div class="form-group"><label>Official Email <span class="required">*</span></label><input type="email" id="officialEmail" required></div>
+                <div class="form-group"><label>Office Phone</label><input type="text" id="officePhoneNumber"></div>
+                <div class="form-group"><label>Emergency Contact Number</label><input type="text" id="emergencyContactNumber"></div>
+            </div>
+        </div>
+
+        <!-- IDENTIFICATION -->
+        <div class="form-section">
+            <h2>🆔 Identification Details</h2>
+            <div class="form-grid">
+                <div class="form-group"><label>PAN Number</label><input type="text" id="panNumber"></div>
+                <div class="form-group"><label>Driving License No</label><input type="text" id="drivingLicenseNo"></div>
+                <div class="form-group"><label>Passport Number</label><input type="text" id="passportNumber"></div>
+                <div class="form-group"><label>Passport Validity</label><input type="date" id="passportValidity"></div>
+            </div>
+        </div>
+
+        <!-- FAMILY INFORMATION -->
+        <div class="form-section">
+            <h2>👨‍👩‍👧 Family Information</h2>
+            <div class="form-grid">
+                <div class="form-group"><label>Father Name</label><input type="text" id="fatherName"></div>
+                <div class="form-group"><label>Mother Name</label><input type="text" id="motherName"></div>
+            </div>
+        </div>
+
+        <!-- RESIDENTIAL ADDRESS -->
+        <div class="form-section">
+            <h2>📍 Address Details</h2>
+            
+            <h3>Residential Address</h3>
+            <div class="form-grid">
+                <div class="form-group full-width"><label>Address</label><textarea id="residentialAddress"></textarea></div>
+                <div class="form-group"><label>Country</label><input type="text" id="residentialCountry"></div>
+                <div class="form-group"><label>State</label><input type="text" id="residentialState"></div>
+                <div class="form-group"><label>City</label><input type="text" id="residentialCity"></div>
+                <div class="form-group"><label>Pincode</label><input type="text" id="residentialPincode"></div>
+            </div>
+
+            <h3>Permanent Address</h3>
+            <div class="form-grid">
+                <div class="form-group full-width"><label>Address</label><textarea id="permanentAddress"></textarea></div>
+                <div class="form-group"><label>Country</label><input type="text" id="permanentCountry"></div>
+                <div class="form-group"><label>City</label><input type="text" id="permanentCity"></div>
+                <div class="form-group"><label>Pincode</label><input type="text" id="permanentPincode"></div>
+            </div>
+        </div>
+
+        <!-- ADDITIONAL INFORMATION -->
+        <div class="form-section">
+            <h2>ℹ️ Additional Information</h2>
+            <div class="form-grid">
+                <div class="form-group"><label>Nearest Railway Station</label><input type="text" id="nearestRailwayStation"></div>
+                <div class="form-group"><label>Nearest Airport</label><input type="text" id="nearestAirport"></div>
+                <div class="form-group"><label>Personal Website</label><input type="text" id="personalWebsite"></div>
+                <div class="form-group"><label>ORCHID ID</label><input type="text" id="orchidID"></div>
+                <div class="form-group full-width"><label>Bio Note</label><textarea id="bioNote"></textarea></div>
+            </div>
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="button-group">
+            <button type="submit" class="btn btn-submit">✅ Submit Form</button>
+            <button type="reset" class="btn btn-reset">🔄 Clear Form</button>
+        </div>
+    </form>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/dexie@3/dist/dexie.min.js"></script>
+<script>
+    const STORAGE_KEY = "samarth_admin_records";
+
+    function submitForm(event) {
+        event.preventDefault();
+
+        const formData = {
+            employeeCode: document.getElementById('employeeCode').value,
+            typeOfEmployee: document.getElementById('typeOfEmployee').value,
+            organizationUnit: document.getElementById('organizationUnit').value,
+            designation: document.getElementById('designation').value,
+            sanctionedOu: document.getElementById('sanctionedOu').value,
+            sanctionedDesignation: document.getElementById('sanctionedDesignation').value,
+            natureOfEmployment: document.getElementById('natureOfEmployment').value,
+            seniorityRank: document.getElementById('seniorityRank').value,
+            subjectSpecialization: document.getElementById('subjectSpecialization').value,
+            isTeacher: document.getElementById('isTeacher').value,
+            salutation: document.getElementById('salutation').value,
+            firstName: document.getElementById('firstName').value,
+            middleName: document.getElementById('middleName').value,
+            lastName: document.getElementById('lastName').value,
+            nameInHindi: document.getElementById('nameInHindi').value,
+            gender: document.getElementById('gender').value,
+            dateOfBirth: document.getElementById('dateOfBirth').value,
+            dateOfJoining: document.getElementById('dateOfJoining').value,
+            dateOfSuperannuation: document.getElementById('dateOfSuperannuation').value,
+            bloodGroup: document.getElementById('bloodGroup').value,
+            socialCategory: document.getElementById('socialCategory').value,
+            qualificationAtTheTimeOfAppointment: document.getElementById('qualificationAtTheTimeOfAppointment').value,
+            universityAccomodation: document.getElementById('universityAccomodation').value,
+            appointedCategory: document.getElementById('appointedCategory').value,
+            belongToPwdCategory: document.getElementById('belongToPwdCategory').value,
+            natureOfDisability: document.getElementById('natureOfDisability').value,
+            religion: document.getElementById('religion').value,
+            nationality: document.getElementById('nationality').value,
+            otherNationality: document.getElementById('otherNationality').value,
+            maritalStatus: document.getElementById('maritalStatus').value,
+            mobileNumber: document.getElementById('mobileNumber').value,
+            alternateMobileNo: document.getElementById('alternateMobileNo').value,
+            personalEmail: document.getElementById('personalEmail').value,
+            officialEmail: document.getElementById('officialEmail').value,
+            officePhoneNumber: document.getElementById('officePhoneNumber').value,
+            emergencyContactNumber: document.getElementById('emergencyContactNumber').value,
+            panNumber: document.getElementById('panNumber').value,
+            fatherName: document.getElementById('fatherName').value,
+            motherName: document.getElementById('motherName').value,
+            residentialAddress: document.getElementById('residentialAddress').value,
+            residentialCountry: document.getElementById('residentialCountry').value,
+            residentialState: document.getElementById('residentialState').value,
+            residentialCity: document.getElementById('residentialCity').value,
+            residentialPincode: document.getElementById('residentialPincode').value,
+            permanentAddress: document.getElementById('permanentAddress').value,
+            permanentCountry: document.getElementById('permanentCountry').value,
+            permanentCity: document.getElementById('permanentCity').value,
+            permanentPincode: document.getElementById('permanentPincode').value,
+            nearestRailwayStation: document.getElementById('nearestRailwayStation').value,
+            nearestAirport: document.getElementById('nearestAirport').value,
+            personalWebsite: document.getElementById('personalWebsite').value,
+            drivingLicenseNo: document.getElementById('drivingLicenseNo').value,
+            passportNumber: document.getElementById('passportNumber').value,
+            passportValidity: document.getElementById('passportValidity').value,
+            bioNote: document.getElementById('bioNote').value,
+            orchidID: document.getElementById('orchidID').value,
+            submittedOn: new Date().toISOString()
+        };
+
+        // Get existing records
+        const stored = localStorage.getItem(STORAGE_KEY);
+        const records = stored ? JSON.parse(stored) : [];
+        
+        // Add new record
+        records.push(formData);
+        
+        // Save to localStorage
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+
+        // Show success message
+        const successMsg = document.getElementById('successMessage');
+        successMsg.style.display = 'block';
+        
+        // Reset form
+        document.getElementById('facultyForm').reset();
+        
+        // Hide success message after 3 seconds
+        setTimeout(() => {
+            successMsg.style.display = 'none';
+        }, 3000);
+    }
+</script>
+
+</body>
+</html>
