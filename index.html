@@ -357,4 +357,33 @@
 </script>
 
 </body>
+
 </html>
+<script>
+
+const form = document.querySelector("form");
+
+form.addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let formData = new FormData(form);
+
+let data = {};
+
+formData.forEach((value,key)=>{
+data[key] = value;
+});
+
+fetch("PASTE_SCRIPT_URL_HERE",{
+method:"POST",
+body:JSON.stringify(data)
+})
+.then(res=>res.text())
+.then(data=>{
+alert("Form Submitted Successfully");
+});
+
+});
+
+</script>
